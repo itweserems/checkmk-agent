@@ -18,7 +18,7 @@ Our focus is implementation, consulting, training and development for
 - GLPI asset management
 - CheckMK2 IT-monitoring
 
-In case of questions, please contact information can be found on https://it-weser-ems.de/.
+In case of questions, please feel free to contact us on https://it-weser-ems.de/.
 
 <a name="licensing"></a>
 ## Licensing
