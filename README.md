@@ -22,8 +22,8 @@ In case of questions, please contact information can be found on https://it-wese
 
 <a name="licensing"></a>
 ## Licensing
-These scripts originate from Github profile SuitDeer and were slightly changed to optimize them.
-Feel free to use them!
+These scripts originate from Github profile SuitDeer (thanks for sharing!) and were slightly changed to optimize them.  
+As long as it's repository is public, feel free to use them!
 
 <a name="prerequisites"></a>
 ## Prerequisites
