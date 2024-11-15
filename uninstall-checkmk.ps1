@@ -1,3 +1,8 @@
+#####
+# IT.WESER-EMS UG
+# In case of questions, please contact us at https://it-weser-ems.de/
+#####
+
 # check if running as administrator
 #Requires -RunAsAdministrator
 

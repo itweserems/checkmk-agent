@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####
+# IT.WESER-EMS UG
+# In case of questions, please contact us at https://it-weser-ems.de/
+#####
+
 # parameters needed to be set site-specific.
 SERVER_NAME="v-u-checkmk-p"
 SITE_NAME="cmk" # More infos: https://docs.checkmk.com/latest/de/intro_setup.html#create_site
