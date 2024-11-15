@@ -1,3 +1,8 @@
+#####
+# IT.WESER-EMS UG
+# In case of questions, please contact us at https://it-weser-ems.de/
+#####
+
 # check if running as administrator
 #Requires -RunAsAdministrator
 
@@ -165,10 +170,20 @@ $job = Start-Job -ArgumentList $API_URL,$USERNAME,$PASSWORD -ScriptBlock {
     $BODY = -join( '{"host_name": "' , $($env:computername.ToLower()) , '", "mode": "only_host_labels"}' )
     Invoke-RestMethod -Method Post -Uri "$($args[0])/domain-types/service_discovery_run/actions/start/invoke" -Headers $headers -Body $BODY -ContentType "application/json" -TimeoutSec 120
 }
-Spinner -JobId $job.Id -Message "Start service discovery for the newly created host via REST-API (Wait 120 secounds)" -AdditionalDelay 120
+Spinner -JobId $job.Id -Message "Start service discovery for the newly created host via REST-API (Wait 60 secounds)" -AdditionalDelay 60
 Remove-Job -Id $job.Id
 
-
+# Initially assigning all discovered services (Wait 60 seconds)
+$job = Start-Job -ArgumentList $API_URL,$USERNAME,$PASSWORD -ScriptBlock {
+    $headers = @{
+        'Accept' = 'application/json'
+        'Authorization' = "Bearer $($args[1]) $($args[2])"
+    }
+    $BODY = -join( '{"host_name": "' , $($env:computername.ToLower()) , '", "mode": "new"}' )
+    Invoke-RestMethod -Method Post -Uri "$($args[0])/domain-types/service_discovery_run/actions/start/invoke" -Headers $headers -Body $BODY -ContentType "application/json" -TimeoutSec 120
+}
+Spinner -JobId $job.Id -Message "Initially assigning all discovered services (Wait 60 seconds)" -AdditionalDelay 60
+Remove-Job -Id $job.Id
 
 # Get ETag from "pending changes" object via REST-API
 $job = Start-Job -ArgumentList $API_URL,$USERNAME,$PASSWORD -ScriptBlock {

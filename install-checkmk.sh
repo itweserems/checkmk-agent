@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####
+# IT.WESER-EMS UG
+# In case of questions, please contact us at https://it-weser-ems.de/
+#####
+
 # parameters needed to be set site-specific.
 SERVER_NAME="v-u-checkmk-p"
 SITE_NAME="cmk" # More infos: https://docs.checkmk.com/latest/de/intro_setup.html#create_site
@@ -162,8 +167,12 @@ spinner "Register the Agent (Wait 60 secounds for host-lables to be assigned to 
 # Start service discovery for the newly created host via REST-API
 BODY="{\"host_name\": \"$(hostname | tr '[:upper:]' '[:lower:]')\", \"mode\": \"only_host_labels\"}"
 curl -s -S -H "Accept: application/json" -H "Authorization: Bearer $USERNAME $PASSWORD" -X POST -H "Content-Type: application/json" -d "$BODY" "$API_URL/domain-types/service_discovery_run/actions/start/invoke" 1> /dev/null 2> error.log &
-spinner "Start service discovery for the newly created host via REST-API (Wait 120 secounds)" 120
+spinner "Start service discovery for the newly created host via REST-API (Wait 60 secounds)" 60
 
+# Initially assigning all discovered services (Wait 60 seconds)
+BODY="{\"host_name\": \"$(hostname | tr '[:upper:]' '[:lower:]')\", \"mode\": \"new\"}"
+curl -s -S -H "Accept: application/json" -H "Authorization: Bearer $USERNAME $PASSWORD" -X POST -H "Content-Type: application/json" -d "$BODY" "$API_URL/domain-types/service_discovery_run/actions/start/invoke" 1> /dev/null 2> error.log &
+spinner "Initially assigning all discovered services (Wait 60 secounds)" 60
 
 # Get ETag from "pending changes" object via REST-API
 temp_file=$(mktemp)
